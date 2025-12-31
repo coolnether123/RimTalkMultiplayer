@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Multiplayer.API;
 using RimTalk.Data;
 using RimTalk.Source.Data;
 using RimTalk.UI;
@@ -55,6 +56,7 @@ public static class CustomDialogueService
         return distance <= TalkDistance && InSameRoom(initiator, recipient);
     }
 
+    [SyncMethod]
     public static void ExecuteDialogue(Pawn initiator, Pawn recipient, string message)
     {
         PawnState initiatorState = Cache.Get(initiator);

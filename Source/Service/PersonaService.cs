@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Multiplayer.API;
 using RimTalk.Service;
 using RimTalk.Util;
 using Verse;
@@ -13,6 +14,7 @@ public static class PersonaService
         return Hediff_Persona.GetOrAddNew(pawn).Personality;
     }
 
+    [SyncMethod]
     public static void SetPersonality(Pawn pawn, string personality)
     {
         Hediff_Persona.GetOrAddNew(pawn).Personality = personality;
@@ -23,6 +25,7 @@ public static class PersonaService
         return Hediff_Persona.GetOrAddNew(pawn).TalkInitiationWeight;
     }
 
+    [SyncMethod]
     public static void SetTalkInitiationWeight(Pawn pawn, float frequency)
     {
         Hediff_Persona.GetOrAddNew(pawn).TalkInitiationWeight = frequency;

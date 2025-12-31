@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using RimTalk.Data;
+using RimTalk.Multiplayer;
 using RimWorld;
 using Verse;
 using Verse.AI;
@@ -508,7 +509,17 @@ public static class PawnUtil
 
     public static bool IsPlayer(this Pawn pawn)
     {
-        return pawn == Cache.GetPlayer();
+        // Check if it's the local player pawn (single player or multiplayer local)
+        if (pawn == Cache.GetPlayer())
+            return true;
+
+        // In multiplayer, also check if it's any multiplayer player's pawn
+        if (RimTalkMultiplayer.IsInMultiplayer())
+        {
+            return MultiplayerPlayerPawns.IsPlayerPawn(pawn);
+        }
+
+        return false;
     }
 
     public static bool HasVocalLink(this Pawn pawn)

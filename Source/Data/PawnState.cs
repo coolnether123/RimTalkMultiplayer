@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Multiplayer.API;
 using RimTalk.Service;
 using RimTalk.Source.Data;
 using RimTalk.Util;
@@ -24,6 +25,7 @@ public class PawnState(Pawn pawn)
     public string Personality => PersonaService.GetPersonality(Pawn);
     public double TalkInitiationWeight => PersonaService.GetTalkInitiationWeight(Pawn);
 
+    [SyncMethod]
     public void AddTalkRequest(string prompt, Pawn recipient = null, TalkType talkType = TalkType.Other)
     {
         if (talkType == TalkType.Urgent)
@@ -101,6 +103,7 @@ public class PawnState(Pawn pawn)
                && CommonUtil.HasPassed(LastTalkTick, Settings.Get().TalkInterval);;
     }
     
+    [SyncMethod]
     public void IgnoreTalkResponse()
     {
         if (TalkResponses.Count == 0) return;
@@ -112,6 +115,7 @@ public class PawnState(Pawn pawn)
         if (log != null) log.SpokenTick = -1;
     }
 
+    [SyncMethod]
     public void IgnoreAllTalkResponses(List<TalkType> keepTypes = null)
     {
         if (keepTypes == null)

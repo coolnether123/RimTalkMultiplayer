@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Multiplayer.API;
 using RimTalk.Client;
 using RimTalk.Source.Data;
 using Verse;
@@ -77,6 +78,7 @@ public static class ApiHistory
         }
     }
 
+    [SyncMethod]
     public static void Clear()
     {
         History.Clear();

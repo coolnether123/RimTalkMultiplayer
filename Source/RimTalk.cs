@@ -1,4 +1,5 @@
 using System.Linq;
+using Multiplayer.API;
 using RimTalk.Client;
 using RimTalk.Data;
 using RimTalk.Error;
@@ -26,6 +27,7 @@ public class RimTalk : GameComponent
         Reset();
     }
 
+    [SyncMethod]
     public static void Reset(bool soft = false)
     {
         var settings = Settings.Get();

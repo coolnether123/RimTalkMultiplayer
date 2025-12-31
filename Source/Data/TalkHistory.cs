@@ -2,6 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using Multiplayer.API;
 using Verse;
 
 namespace RimTalk.Data;
@@ -76,6 +77,7 @@ public static class TalkHistory
         }
     }
 
+    [SyncMethod]
     public static void Clear()
     {
         MessageHistory.Clear();

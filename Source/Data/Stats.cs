@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Multiplayer.API;
 
 namespace RimTalk.Data;
 
@@ -111,6 +112,7 @@ public static class Stats
         }
     }
 
+    [SyncMethod]
     public static void Reset()
     {
         TotalTokens = 0;

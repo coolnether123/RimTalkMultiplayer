@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Multiplayer.API;
 using RimTalk.Source.Data;
 using Verse;
 
@@ -67,6 +68,7 @@ public static class TalkRequestPool
         return Requests.ToList();
     }
 
+    [SyncMethod]
     public static void Clear()
     {
         Requests.Clear();

@@ -1,6 +1,8 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using Multiplayer.API;
+using RimTalk.Multiplayer;
 using RimTalk.Util;
 using RimWorld;
 using Verse;
@@ -76,6 +78,7 @@ public static class Cache
         return PawnCache.Values;
     }
 
+    [SyncMethod]
     public static void Clear()
     {
         PawnCache.Clear();
@@ -186,7 +189,18 @@ public static class Cache
 
     public static void InitializePlayerPawn()
     {
-        if (Current.Game == null || Settings.Get().PlayerName == _playerPawn?.Name.ToStringShort) return;
+        if (Current.Game == null) return;
+
+        // In multiplayer, use the multiplayer player pawn system
+        if (RimTalkMultiplayer.IsInMultiplayer())
+        {
+            MultiplayerPlayerPawns.Initialize();
+            _playerPawn = MultiplayerPlayerPawns.GetLocalPlayerPawn();
+            return;
+        }
+
+        // In single player, use the standard player pawn
+        if (Settings.Get().PlayerName == _playerPawn?.Name.ToStringShort) return;
         
         _playerPawn = PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist);
         _playerPawn.Name = new NameSingle(Settings.Get().PlayerName);
