@@ -150,10 +150,8 @@ namespace RimTalk.Multiplayer
                 multiplayerAPI.RegisterSyncField(typeof(RimTalkSettings), nameof(RimTalkSettings.DisplayTalkWhenDrafted));
                 multiplayerAPI.RegisterSyncField(typeof(RimTalkSettings), nameof(RimTalkSettings.ContinueDialogueWhileSleeping));
                 
-                // === PAWN STATE - Display-related fields ===
-                multiplayerAPI.RegisterSyncField(typeof(PawnState), nameof(PawnState.LastTalkTick));
-                multiplayerAPI.RegisterSyncField(typeof(PawnState), nameof(PawnState.LastStatus));
-                multiplayerAPI.RegisterSyncField(typeof(PawnState), nameof(PawnState.IsGeneratingTalk));
+                // Note: PawnState fields are not synced because they are properties, not fields.
+                // PawnState is managed through synced methods (AddTalkRequest, etc.) instead.
                 
                 Log.Message("[RimTalk] Registered sync fields successfully.");
             }
